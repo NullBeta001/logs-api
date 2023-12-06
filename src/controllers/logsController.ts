@@ -68,7 +68,7 @@ class LogController {
     }
   }
 
-  // Obtém logs por conteúdo na propriedade acton
+  // Obtém logs por conteúdo na propriedade action
   async getLogsByAction(req: Request, res: Response) {
     try {
       const { searchTerm } = req.query;
