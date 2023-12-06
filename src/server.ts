@@ -24,6 +24,13 @@ const swaggerSpec = swaggerJSDoc(swaggerOptions);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use("/api", apiRouter);
 
+app.listen(process.env.PORT || 3000, function () {
+  console.log(
+    "Express server listening on port %d in %s mode",
+    app.settings.env
+  );
+});
+
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
   console.log(
