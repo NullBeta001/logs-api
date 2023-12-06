@@ -20,6 +20,75 @@ class LogController {
       res.status(500).send("Erro interno do servidor");
     }
   }
+
+  // Obtém logs por período
+  async getLogsByPeriod(req: Request, res: Response) {
+    try {
+      const { startDate, endDate } = req.query;
+
+      if (!startDate || !endDate) {
+        return res.status(400).json({
+          message: "Parâmetros startDate e endDate são obrigatórios.",
+        });
+      }
+
+      const logs = await LogModel.find({
+        date: {
+          $gte: new Date(startDate as string),
+          $lte: new Date(endDate as string),
+        },
+      });
+
+      return res.json(logs);
+    } catch (error) {
+      console.error("Erro ao buscar logs por período:", error);
+      return res.status(500).send("Erro interno do servidor");
+    }
+  }
+
+  // Obtém logs por conteúdo na propriedade description
+  async getLogsByDescription(req: Request, res: Response) {
+    try {
+      const { searchTerm } = req.query;
+
+      if (!searchTerm) {
+        return res
+          .status(400)
+          .json({ message: "Parâmetro searchTerm é obrigatório." });
+      }
+
+      const logs = await LogModel.find({
+        description: { $regex: searchTerm as string, $options: "i" },
+      });
+
+      return res.json(logs);
+    } catch (error) {
+      console.error("Erro ao buscar logs por descrição:", error);
+      return res.status(500).send("Erro interno do servidor");
+    }
+  }
+
+  // Obtém logs por conteúdo na propriedade acton
+  async getLogsByAction(req: Request, res: Response) {
+    try {
+      const { searchTerm } = req.query;
+
+      if (!searchTerm) {
+        return res
+          .status(400)
+          .json({ message: "Parâmetro searchTerm é obrigatório." });
+      }
+
+      const logs = await LogModel.find({
+        action: { $regex: searchTerm as string, $options: "i" },
+      });
+
+      return res.json(logs);
+    } catch (error) {
+      console.error("Erro ao buscar logs por descrição:", error);
+      return res.status(500).send("Erro interno do servidor");
+    }
+  }
 }
 
 export default new LogController();

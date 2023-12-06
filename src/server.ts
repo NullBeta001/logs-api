@@ -11,9 +11,9 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Nome da Sua API",
+      title: "API logs on sepherum",
       version: "1.0.0",
-      description: "Descrição da Sua API",
+      description: "Endpoint of logs on sepherum",
     },
   },
   apis: ["./src/routes/*.ts"],
